@@ -10,41 +10,28 @@ function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-
-        {/* 🔹 Navbar global */}
         <NavBar />
-
-        {/* 🔹 Rutas */}
-        <Routes>
-
-          {/* Home */}
+        <Routes>          
           <Route
             path="/"
             element={
               <ItemListContainer greeting="Bienvenido a la tienda" />
             }
           />
-
-          {/* Categorías */}
           <Route
             path="/category/:categoryId"
             element={
               <ItemListContainer greeting="Productos por categoría" />
             }
           />
-
-          {/* Detalle de producto */}
           <Route
             path="/item/:id"
             element={<ItemDetailContainer />}
           />
-
-          {/* Checkout */}
           <Route
             path="/checkout"
             element={<CheckOut />}
           />
-
         </Routes>
 
       </BrowserRouter>
