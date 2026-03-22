@@ -13,58 +13,47 @@ export const ItemDetail = ({ product }) => {
 
   return (
     <Container className="mt-4">
+  <Row className="align-items-center">
 
-      <Row>
+    {/* Imagen */}
+    <Col md={6} className="text-center">
+      <Image 
+        src={`/img/${product.image}.jpg`} 
+        alt={product.name} 
+        fluid 
+        rounded
+        className="shadow"
+        style={{ maxHeight: '400px', objectFit: 'contain' }}
+      />
+    </Col>
 
-        {/* Imagen */}
-        <Col md={6}>
-          <Image 
-            src={`/img/${product.image}.jpg`} 
-            alt={product.name} 
-            fluid 
-            rounded
+    {/* Info */}
+    <Col md={6}>
+      <Card className="h-100 shadow-sm">
+        <Card.Body className="d-flex flex-column justify-content-center">
+
+          <Card.Title as="h2">
+            {product.name}
+          </Card.Title>
+
+          <Card.Text>
+            {product.description}
+          </Card.Text>
+
+          <h3 >
+            ${product.price}
+          </h3>
+
+          <ItemQuantitySelector 
+            quantity={quantity}
+            setQuantity={setQuantity}
+            onAdd={handleAddToCart}
           />
-        </Col>
+        </Card.Body>
+      </Card>
+    </Col>
 
-        {/* Info */}
-        <Col md={6}>
-          <Card>
-            <Card.Body>
-
-              <Card.Title as="h2">
-                {product.name}
-              </Card.Title>
-
-              <Card.Text>
-                {product.description}
-              </Card.Text>
-
-              <h3 className="text-warning mb-3">
-                ${product.price}
-              </h3>
-
-              {/* Selector */}
-              <ItemQuantitySelector
-                quantity={quantity}
-                setQuantity={setQuantity}
-                onAdd={handleAddToCart}
-              />
-
-              {/* Botón */}
-              <Button 
-                variant="primary"
-                className="mt-3 w-100"
-                onClick={handleAddToCart}
-              >
-                Agregar al carrito
-              </Button>
-
-            </Card.Body>
-          </Card>
-        </Col>
-
-      </Row>
-
-    </Container>
+  </Row>
+</Container>
   )
 }

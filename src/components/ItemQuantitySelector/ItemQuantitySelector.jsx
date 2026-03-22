@@ -1,4 +1,7 @@
 import { AddItemButton } from '../AddItemButton/AddItemButton'
+import { Button, ButtonGroup } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons'
 
 export const ItemQuantitySelector = ({ quantity, setQuantity, onAdd }) => {
 
@@ -17,14 +20,27 @@ export const ItemQuantitySelector = ({ quantity, setQuantity, onAdd }) => {
     }
   }
 
-  return (
-    <div className="quantity-selector">
-      <div className="quantity-selector__controls">
-        <button onClick={decrease}>-</button>
-        <span>{quantity}</span>
-        <button onClick={increase}>+</button>
-      </div>      
-      <AddItemButton onAdd={onAdd} />
-    </div>
-  )
+ return (
+  <div className="d-flex flex-column align-items-center gap-3">
+
+  <ButtonGroup>
+    <Button variant="outline-secondary" onClick={decrease}>
+      <FontAwesomeIcon icon={faMinus} />
+    </Button>
+
+    <Button variant="light" className="fs-4" disabled>
+      {quantity}
+    </Button>
+
+    <Button variant="outline-secondary" onClick={increase}>
+      <FontAwesomeIcon icon={faPlus} />
+    </Button>
+  </ButtonGroup>
+
+  <div className="mt-auto">
+    <AddItemButton onAdd={onAdd} />
+  </div>
+
+</div>
+);
 }

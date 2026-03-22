@@ -1,7 +1,9 @@
+import { Button } from "react-bootstrap"
+
 export const AddItemButton = ({ onAdd }) => {
   return (
-    <button onClick={onAdd}>
+    <Button onClick={onAdd}>
       Agregar al carrito
-    </button>
+    </Button>
   )
 }

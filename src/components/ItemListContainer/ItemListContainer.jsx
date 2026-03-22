@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ItemList } from '../ItemList/ItemList'
 import { db } from '../../db/db'
+import { Container } from 'react-bootstrap'
 
 export const ItemListContainer = ({ greeting, category }) => {
 
@@ -36,7 +37,9 @@ export const ItemListContainer = ({ greeting, category }) => {
       {loading ? (
         <p>Cargando productos...</p>
       ) : (
-        <ItemList products={products} />
+        <Container className="mt-4">
+          <ItemList products={products} />
+        </Container>
       )}
     </div>
   )
