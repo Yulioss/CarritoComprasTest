@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useCartContext } from '../../context/CartContext/CartContext'
 import { Nav, Badge } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faCartShopping} from '@fortawesome/free-solid-svg-icons'
 
 export const CartWidget = () => {
 
@@ -12,7 +14,7 @@ export const CartWidget = () => {
       to="/checkout"
       className="position-relative"
     >
-      🛒
+      <FontAwesomeIcon icon={faCartShopping} size="2x" color='white'/>
 
       {cartLength > 0 && (
         <Badge
