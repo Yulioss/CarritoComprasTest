@@ -14,18 +14,24 @@ export const CartWidget = () => {
       to="/checkout"
       className="position-relative"
     >
-      <FontAwesomeIcon icon={faCartShopping} size="2x" color='white'/>
+      <div className="position-relative d-inline-block">
+        <FontAwesomeIcon icon={faCartShopping} size="2x" color='white'/>
 
-      {cartLength > 0 && (
-        <Badge
-          bg="warning"
-          text="dark"
-          pill
-          className="position-absolute top-0 start-100 translate-middle"
-        >
-          {cartLength}
-        </Badge>
-      )}
+        {cartLength > 0 && (
+          <Badge
+            bg="warning"
+            text="dark"
+            pill
+            className="position-absolute top-0 start-100"
+            style={{
+              transform: "translate(-40%, -40%)",
+              fontSize: "0.65rem"
+        }}
+          >
+            {cartLength}
+          </Badge>
+        )}
+      </div>
     </Nav.Link>
   )
 }

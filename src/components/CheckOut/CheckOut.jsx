@@ -103,7 +103,7 @@ export const CheckOut = () => {
 
         {/* Resumen */}
         <Col md={4}>
-          <Card className="shadow-sm">
+          <Card className="shadow-sm position-sticky" style={{ top: "150px" }}>
             <Card.Body>
 
               <Card.Title>Resumen</Card.Title>
