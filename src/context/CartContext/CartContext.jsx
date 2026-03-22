@@ -1,39 +1,44 @@
 import { createContext, useContext, useReducer, useMemo, useEffect } from 'react'
 
-// 🔹 constantes
-const MAX_ITEMS = 6
+//constantes
+const MAX_ITEMS = 99
 const MIN_ITEMS = 1
 
-// 🔹 contexto
+//contexto
 const CartContext = createContext()
 
-// 🔹 initializer (localStorage)
+// initializer (localStorage)
 const initialCart = () => {
   const localStorageCart = localStorage.getItem('cart')
   return localStorageCart ? JSON.parse(localStorageCart) : []
 }
 
-// 🔹 reducer
+// reducer
 const cartReducer = (state, action) => {
   switch (action.type) {
 
     case 'ADD_TO_CART': {
-      const itemExists = state.findIndex(p => p.id === action.payload.id)
+  const item = state.find(p => p.id === action.payload.id);
 
-      if (itemExists >= 0) {
-        const updatedCart = [...state]
+  if (item) {
+    return state.map(p =>
+      p.id === action.payload.id
+        ? {
+            ...p,
+            quantity: Math.min(
+              p.quantity + (action.payload.quantity || 1),
+              MAX_ITEMS
+            )
+          }
+        : p
+    );
+  }
 
-        if (updatedCart[itemExists].quantity >= MAX_ITEMS) return state
-
-        updatedCart[itemExists].quantity += action.payload.quantity || 1
-        return updatedCart
-      }
-
-      return [
-        ...state,
-        { ...action.payload, quantity: action.payload.quantity || 1 }
-      ]
-    }
+  return [
+    ...state,
+    { ...action.payload, quantity: action.payload.quantity || 1 }
+  ];
+}
 
     case 'REMOVE_FROM_CART':
       return state.filter(item => item.id !== action.payload)
@@ -60,7 +65,7 @@ const cartReducer = (state, action) => {
   }
 }
 
-// 🔹 provider
+// provider
 export const CartProvider = ({ children }) => {
 
   const [cart, dispatch] = useReducer(cartReducer, [], initialCart)
@@ -70,7 +75,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])
 
-  // 🔹 actions
+  // actions
   const addToCart = (product, quantity = 1) => {
     dispatch({
       type: 'ADD_TO_CART',
@@ -94,7 +99,7 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'CLEAR_CART' })
   }
 
-  // 🔹 derivados
+
   const cartLength = useMemo(
     () => cart.reduce((total, item) => total + item.quantity, 0),
     [cart]
@@ -126,5 +131,5 @@ export const CartProvider = ({ children }) => {
   )
 }
 
-// 🔹 hook custom
+// hook custom
 export const useCartContext = () => useContext(CartContext)
